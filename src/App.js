@@ -3,7 +3,7 @@ import {
   // Jobs Icons
   ChefHat, Stethoscope, Hammer, Palette, Wrench, Plane, GraduationCap, Truck,
   // Animal Icons
-  Cat, Dog, Fish, Rabbit, Bird, Snail, Turtle, Bug,
+  Cat, Dog, Fish, PawPrint, Bird, Snail, Turtle, Bug,
   // Space Icons
   Sun, Globe, Moon, Rocket, Star,
   // UI Icons
@@ -14,14 +14,14 @@ import {
  * Custom Icons for specific Planets not in Lucide
  */
 const Saturn = ({ className, strokeWidth }) => (
-  <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth || 2} strokeLinecap="round" strokeLinejoin="round" className={className}>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth || 2} strokeLinecap="round" strokeLinejoin="round" className={className}>
     <circle cx="12" cy="12" r="6" />
     <ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(-20 12 12)" />
   </svg>
 );
 
 const Jupiter = ({ className, strokeWidth }) => (
-  <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth || 2} strokeLinecap="round" strokeLinejoin="round" className={className}>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth || 2} strokeLinecap="round" strokeLinejoin="round" className={className}>
     <circle cx="12" cy="12" r="9" />
     <path d="M3.5 9h17" />
     <path d="M3.5 15h17" />
@@ -29,7 +29,7 @@ const Jupiter = ({ className, strokeWidth }) => (
 );
 
 const Mars = ({ className, strokeWidth }) => (
-  <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth || 2} strokeLinecap="round" strokeLinejoin="round" className={className}>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth || 2} strokeLinecap="round" strokeLinejoin="round" className={className}>
     <circle cx="10" cy="14" r="6" />
     <path d="m14 10 5-5" />
     <path d="M14 5h5v5" />
@@ -56,7 +56,7 @@ const THEMES = {
       { id: 'cat', label: 'Cat', icon: Cat, color: 'text-orange-500', bg: 'bg-orange-100' },
       { id: 'dog', label: 'Dog', icon: Dog, color: 'text-amber-600', bg: 'bg-amber-100' },
       { id: 'fish', label: 'Fish', icon: Fish, color: 'text-blue-500', bg: 'bg-blue-100' },
-      { id: 'rabbit', label: 'Rabbit', icon: Rabbit, color: 'text-pink-500', bg: 'bg-pink-100' },
+      { id: 'paw', label: 'Tracks', icon: PawPrint, color: 'text-pink-500', bg: 'bg-pink-100' },
       { id: 'bird', label: 'Bird', icon: Bird, color: 'text-sky-500', bg: 'bg-sky-100' },
       { id: 'snail', label: 'Snail', icon: Snail, color: 'text-lime-600', bg: 'bg-lime-100' },
       { id: 'turtle', label: 'Turtle', icon: Turtle, color: 'text-emerald-600', bg: 'bg-emerald-100' },
@@ -99,7 +99,7 @@ export default function App() {
   const [turn, setTurn] = useState(1); // 1 or 2
   const [scores, setScores] = useState({ 1: 0, 2: 0 });
   const [winner, setWinner] = useState(null);
-
+  
   // AI Memory
   const aiMemory = useRef({}); // Maps index -> cardId
 
@@ -113,12 +113,12 @@ export default function App() {
       const performAiMove = async () => {
         // Short delay before AI starts acting
         await new Promise(r => setTimeout(r, 1000));
-
+        
         // AI Logic:
         // 1. Check if we know any pairs in memory that aren't matched yet
         let firstMoveIndex = -1;
         let secondMoveIndex = -1;
-
+        
         const availableIndices = cards
           .map((_, i) => i)
           .filter(i => !matchedPairs.includes(cards[i].id));
@@ -183,7 +183,7 @@ export default function App() {
   const startNewGame = (themeKey = currentTheme, modeKey = gameMode) => {
     const themeCards = THEMES[themeKey].cards;
     const pairs = [...themeCards, ...themeCards];
-
+    
     const shuffled = pairs
       .sort(() => Math.random() - 0.5)
       .map((type, index) => ({
@@ -255,7 +255,7 @@ export default function App() {
       }
       // Note: In many memory rules, if you get a match, you go again. 
       // We will keep that rule here for competitive modes.
-
+      
     } else {
       // No match
       setTimeout(() => {
@@ -317,7 +317,7 @@ export default function App() {
             ))}
           </div>
         </div>
-
+        
         {/* Score Board */}
         <div className="flex w-full justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
           {gameMode === 'solo' ? (
@@ -383,7 +383,7 @@ export default function App() {
             <RefreshCw className="w-5 h-5" />
           </button>
         </div>
-
+        
         {/* Turn Indicator for Multiplayer */}
         {gameMode !== 'solo' && !gameWon && (
           <div className={`
@@ -451,7 +451,7 @@ export default function App() {
               <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Trophy className="w-10 h-10 text-yellow-500" />
               </div>
-
+              
               {gameMode === 'solo' ? (
                 <>
                   <h2 className="text-3xl font-extrabold text-slate-800 mb-2">Great Job!</h2>
